@@ -5,103 +5,63 @@
 | Column             | Type                | Options                   |
 |--------------------|---------------------|---------------------------|
 | nickname           | string              | null: false               |
-| email              | string              | null: false               |
+| email              | string              | null: false, unique: true |
 | encrypted_password | string              | null: false               |
 | family_name        | string              | null: false               |
 | first_name         | string              | null: false               |
 | family_name_kana   | string              | null: false               |
 | first_name_kana    | string              | null: false               |
-| birth_day          | date                | null: false               |
+| birthday           | date                | null: false               |
 
 ### Association
 
-* has_many :items dependent: :destroy
-* belongs_to :destination dependent: :destroy
-* belongs_to :card dependent: :destroy
-
-## destination テーブル
-
-|Column              |Type                 |Options                         |
-|--------------------|---------------------|--------------------------------|
-| user_id            | integer             | null: false, foreign_key: true |
-| family_name        | string              | null: false                    |
-| first_name         | string              | null: false                    |
-| family_name_kana   | string              | null: false                    |
-| first_name_kana    | string              | null: false                    |
-| post_code          | string              | null: false                    |
-| prefecture         | string              | null: false                    |
-| city               | string              | null: false                    |
-| address            | string              | null: false                    |
-| building_name      | string              |                                |
-| phone_number       | string              |                                |
-
-### Association
-
-* belongs_to :user
-
-## card テーブル
-
-| Column             | Type                | Options                        |
-|--------------------|---------------------|--------------------------------|
-| user_id            | integer             | null: false, foreign_key: true |
-| customer_id        | string              | null: false                    |
-| card_id            | string              | null: false                    |
-
-### Association
-
-* belongs_to :user
+* has_many :items
+* has_many :orders
 
 ## items テーブル
 
-| Column             | Type                | Options                   |
-|--------------------|---------------------|---------------------------|
-| name               | string              | null: false               |
-| description        | string              | null: false               |
-| status             | string              | null: false               |
-| shipping_cost      | string              | null: false               |
-| shipping_days      | string              | null: false               |
-| prefecture_id      | string              | null: false               |
-| category_id        | string              | null: false               |
-| brand_id           | date                | null: false               |
-| shipping_id        | string              | null: false               |
-| user _id           | date                | null: false               |
+| Column             | Type              | Options                       |
+|--------------------|-------------------|-------------------------------|
+| name               | string            | null: false                   |
+| content            | text              | null: false                   |
+| category_id        | integer           | null: false                   |
+| status_id          | integer           | null: false                   |
+| payer_id           | integer           | null: false                   |
+| prefecture_id      | integer           | null: false                   |
+| days_id            | integer           | null: false                   |
+| price              | integer           | null: false                   |
+| user               | references        | null: false,foreign_key :true |
 
 ### Association
 
-* belongs_to :user dependent: :destroy
-* belongs_to :category dependent: :destroy
-* belongs_to :brand dependent: :destroy
-* has_many :images dependent: :destroy
-* belongs_to_active_hash :prefecture
- 
-## images テーブル
+* belongs_to :user 
+* has_one :order
 
-| Column             | Type               | Options                    |
-|--------------------|--------------------|----------------------------|
-| image              | string             | null: false                |
-| item_id            | integer            | null: false, foreign: true |
+## orders テーブル
+
+| Column             | Type                | Options                        |
+|--------------------|---------------------|--------------------------------|
+| user               | references          | null: false, foreign_key: true |
+| item               | references          | null: false, foreign_key: true |
 
 ### Association
 
+* belongs_to :user 
 * belongs_to :item
+* has_one :buyer
 
-## category テーブル
+## buyers テーブル
 
-| Column             | Type                | Options                   |
-|--------------------|---------------------|---------------------------|
-| name               | string              | null: false               |
-| ancesty            | string              |                           |
-
-### Association
-
-* has_many :items
-
-## brand テーブル
-
-| Column             | Type                | Options                   |
-|--------------------|---------------------|---------------------------|
-| name               | string              | index: true               |
+|Column              |Type               |Options                         |
+|--------------------|-------------------|--------------------------------|
+| post_code          | string            | null: false                    |
+| prefecture_id      | integer           | null: false                    |
+| city               | string            | null: false                    |
+| address            | string            | null: false                    |
+| building_name      | string            |                                |
+| phone_number       | string            | null: false                    |
+| order              | references        | null: false,foreign_key        |
 
 ### Association
 
-* has_many :items
+* belongs_to :order
