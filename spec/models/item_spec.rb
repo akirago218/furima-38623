@@ -54,7 +54,7 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Payer can't be blank")
       end
-      it '・配送料の負担に「---」が選択されている場合は出品できない' do
+      it '配送料の負担に「---」が選択されている場合は出品できない' do
         @item.payer_id = '1'
         @item.valid?
         expect(@item.errors.full_messages).to include("Payer can't be blank")
@@ -64,7 +64,7 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Prefecture can't be blank")
       end  
-      it '・発送元の地域に「---」が選択されている場合は出品できない' do
+      it '発送元の地域に「---」が選択されている場合は出品できない' do
         @item.prefecture_id = '1'
         @item.valid?
         expect(@item.errors.full_messages).to include("Prefecture can't be blank")     
@@ -72,12 +72,12 @@ RSpec.describe Item, type: :model do
       it '発送までの日数の情報がないと出品できないこと' do
         @item.shipping_day_id = ''
         @item.valid?
-        expect(@item.errors.full_messages).to include("Shipping_day can't be blank")
+        expect(@item.errors.full_messages).to include("Shipping day can't be blank")
       end  
       it '発送までの日数に「---」が選択されている場合は出品できない' do
-        @item.days_id = '1'
+        @item.shipping_day_id = '1'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Shipping_day can't be blank")       
+        expect(@item.errors.full_messages).to include("Shipping day can't be blank")       
       end  
       it '価格がないと出品できないこと' do
         @item.price = ''
