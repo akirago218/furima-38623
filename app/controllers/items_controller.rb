@@ -4,4 +4,10 @@ class ItemsController < ApplicationController
 
   end
 
+ praivate
+
+ def message_params
+   params.require(:item).permit(:content, :image).merge(user_id: curret_user.id)
+ end
+
 end
