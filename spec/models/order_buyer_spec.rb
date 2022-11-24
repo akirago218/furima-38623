@@ -59,27 +59,27 @@ RSpec.describe OrderBuyer, type: :model do
       it '電話番号がないと購入できない' do
         @order_buyer.phone_number = ''
         @order_buyer.valid?
-        expect(@order_buyer.errors.full_messages).to include("Phone can't be blank")
+        expect(@order_buyer.errors.full_messages).to include("Phone number can't be blank")
       end
       it '電話番号は全角数値では購入できない' do
         @order_buyer.phone_number = '０９０１２３４１２３４'
         @order_buyer.valid?
-        expect(@order_buyer.errors.full_messages).to include("Phone is invalid")
+        expect(@order_buyer.errors.full_messages).to include("Phone number is invalid")
       end
       it '電話番号は半角数値のみでないと購入できない' do
         @order_buyer.phone_number = '090-1234-1234'
         @order_buyer.valid?
-        expect(@order_buyer.errors.full_messages).to include("Phone is invalid")
+        expect(@order_buyer.errors.full_messages).to include("Phone number is invalid")
       end    
       it '電話番号は9桁以下では購入できない' do
         @order_buyer.phone_number = '090123123'
         @order_buyer.valid?
-        expect(@order_buyer.errors.full_messages).to include("Phone is invalid")
+        expect(@order_buyer.errors.full_messages).to include("Phone number is invalid")
       end    
       it '電話番号は12桁以上では購入できない' do
         @order_buyer.phone_number = '090123451234'
         @order_buyer.valid?
-        expect(@order_buyer.errors.full_messages).to include("Phone is invalid")
+        expect(@order_buyer.errors.full_messages).to include("Phone number is invalid")
       end
       it 'userが紐付いていなければ購入できない' do
         @order_buyer.user_id = nil
@@ -90,6 +90,11 @@ RSpec.describe OrderBuyer, type: :model do
         @order_buyer.item_id = nil
         @order_buyer.valid?
         expect(@order_buyer.errors.full_messages).to include("Item can't be blank")
+      end
+      it 'tokenが空では購入できない' do
+        @order_buyer.token = nil
+        @order_buyer.valid?
+        expect(@order_buyer.errors.full_messages).to include("Token can't be blank")
       end
     end  
   end
