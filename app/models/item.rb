@@ -12,12 +12,12 @@ class Item < ApplicationRecord
 
   validates :name, presence: true
   validates :content, presence: true
-  validates :category_id, numericality: { other_than: 1 , message: "can't be blank"}
-  validates :status_id, numericality: { other_than: 1 , message: "can't be blank"}
-  validates :payer_id, numericality: { other_than: 1 , message: "can't be blank"}
-  validates :prefecture_id, numericality: { other_than: 1 , message: "can't be blank"}
-  validates :shipping_day_id, numericality: { other_than: 1 , message: "can't be blank"}
+  validates :category_id, numericality: { other_than: 1 , message: "を選択してください"}
+  validates :status_id, numericality: { other_than: 1 , message: "を選択してください"}
+  validates :payer_id, numericality: { other_than: 1 , message: "を選択してください"}
+  validates :prefecture_id, numericality: { other_than: 1 , message: "を選択してください"}
+  validates :shipping_day_id, numericality: { other_than: 1 , message: "を選択してください"}
   VALID_PRICEL_HALF = /\A[0-9]+\z/
-  validates :price, presence: true, format: {with: VALID_PRICEL_HALF},numericality: { only_integer: true, greater_than: 299, less_than: 10000000}
+  validates :price, presence: true, format: {with: VALID_PRICEL_HALF},numericality: { only_integer: true, greater_than: 299, less_than: 10000000, message: "は¥300〜9,999,999の半角数字で入力してください"}
   validates :image, presence: true
 end

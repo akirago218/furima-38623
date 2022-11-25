@@ -5,8 +5,8 @@ class OrderBuyer
   with_options presence: true do
     validates :user_id
     validates :item_id
-    validates :post_code, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Enter it as follows (e.g. 123-4567)" }
-    validates :prefecture_id, numericality: { other_than: 1 , message: "can't be blank"}
+    validates :post_code, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "は半角数字で間にハイフンを入れて入力してください (例 123-4567)" }
+    validates :prefecture_id, numericality: { other_than: 1 , message: "を選択してください"}
     validates :city
     validates :address
     validates :phone_number, format: {with: /\A[0-9]{10,11}\z/, length: { minimum: 10, maximum: 11 } }
